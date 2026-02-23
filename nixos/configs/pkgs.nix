@@ -36,10 +36,17 @@
      grim
      slurp
      wl-clipboard
+     bluez
+     bluez-tools
+     blueman
   ];
 
   programs.zsh.enable = true;
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
   users.defaultUserShell = pkgs.zsh;
 
   fonts.packages = with pkgs; [

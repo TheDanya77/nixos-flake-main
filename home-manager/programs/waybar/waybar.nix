@@ -11,7 +11,7 @@
 
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" ];
+        modules-right = [ "cpu" "custom/gpu" "custom/keyboard-layout" "pulseaudio" "bluetooth" "network" "custom/shutdown" ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -30,9 +30,41 @@
           interval = 1;
         };
 
-        battery = {
-          format = "{capacity}% {icon}";
-          format-icons = ["" "" "" "" ""];
+        cpu = {
+          interval = 2;
+          format = " {usage}%";
+          tooltip = true;
+        };
+
+        "custom/gpu" = {
+          exec = "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits";
+          interval = 2;
+          format = "󱤓 {}%";
+          tooltip = false;
+        };
+
+        "custom/keyboard-layout" = {
+          exec = "hyprctl devices -j | jq -r '.keyboards[] | select(.name==\"royuan-2.4g-wireless-keyboard\") | .active_keymap' | awk '{if ($1==\"English\") print \"EN\"; else if ($1==\"Ukrainian\") print \"UA\"}'";
+          interval = 0.5;
+          format = "⌨ {}";
+          on-click = "hyprctl switchxkblayout royuan-2.4g-wireless-keyboard next";
+        };
+
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-muted = "󰝟 {volume}%";
+          format-icons = {
+            default = ["󰕿" "󰕿" "󰖀" "󰖀" "󰖀" "󰖀" "󰕾" "󰕾"];
+          };
+        };
+
+        bluetooth = {
+          format = " {status}";
+          format-disabled = "";
+          format-connected = " {num_connections} connected";
+          tooltip-format = "{controller_alias}\t{controller_address}";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         };
 
         network = {
@@ -40,63 +72,67 @@
           format-wifi = "{icon} {essid}";
           format-ethernet = "󰌗 {ipaddr}";
           format-disconnected = "";
-          # tooltip-format = "{ifname} via {gwaddr} 󰊗";
-          # tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-          # tooltip-format-ethernet = "{ifname} ";
-          # tooltip-format-disconnected = "Disconnected";
 
           format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
 
           max-length = 50;
         };
 
-        pulseaudio = {
-          format = "{volume}% {icon}";
-          format-muted = "{volume}% 󰝟";
-          format-icons = {
-            default = ["󰕿" "󰖀" "󰖀" "󰕾" "󰕾"];
-          };
+        "custom/shutdown" = {
+
+          format = "";
+          on-click = "alacritty";
         };
       };
     };
 
-    style = ''
-      * {
-        font-family: "JetBrainsMono Nerd Font";
-        font-size: 13px;
-      }
+    style =
+      let
+        bg-main = "#1e1e2e";
+        bg-second = "#313244";
+        border-color = "#45475a";
+        text-color = "#cdd6f4";
+        active-color = "#89b4fa";
+        hover-color = "#45475a";
+      in
+      ''
+        * {
+          font-family: "JetBrainsMono Nerd Font";
+          font-size: 13px;
+          color: ${text-color};
+        }
 
-      window#waybar {
-        border: 1px solid #45475a;
-        border-radius: 5px;
-      }
+        window#waybar {
 
-      #workspaces button {
-        padding: 0 7px;
-        color: #cdd6f4;
-        transition: all 0.3s ease;
-        border-radius: 5px;
-      }
+          border: 1px solid ${border-color};
+          border-radius: 5px;
+        }
 
-      #workspaces button:hover {
-        background-color: #45475a;
-        transition: all 0.3s ease;
-      }
+        #workspaces button {
+          padding: 0 7px;
+          transition: all 0.3s ease;
+          border-radius: 5px;
+        }
 
-      #workspaces button.active {
-        background-color: #89b4fa;
-        color: #1e1e2e;
-      }
+        #workspaces button:hover {
+          background-color: ${hover-color};
+        }
 
-      #pulseaudio {
+        #workspaces button.active {
+          background-color: ${active-color};
+        }
 
-        margin-right: 10px;
-      }
+        #clock, #cpu, #custom-gpu, #custom-keyboard-layout, #pulseaudio, #bluetooth, #network, #custom-shutdown {
+          border: 1px solid ${border-color};
+          background-color: ${bg-second};
+          border-radius: 5px;
+          padding: 0 7px;
+        }
 
-      #network {
+        #cpu, #custom-gpu, #custom-keyboard-layout, #pulseaudio, #bluetooth, #network {
 
-        margin-right: 10px;
-      }
-    '';
+          margin-right: 10px;
+        }
+      '';
   };
 }

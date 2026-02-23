@@ -18,6 +18,7 @@
       ./configs/pkgs.nix
       ./configs/gpu.nix
       ./configs/hyprland.nix
+      ./configs/bluetooth.nix
     ];
 
   # This value determines the NixOS release from which the default
