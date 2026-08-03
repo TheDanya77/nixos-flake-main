@@ -39,8 +39,22 @@
      bluez
      bluez-tools
      blueman
+     flatpak
+     xdg-desktop-portal
+     xdg-desktop-portal-gtk
+     nodejs_20
+     ayugram-desktop
+     gpu-screen-recorder
+     gpu-screen-recorder-gtk
+     easyeffects
+     nmap
+     unzip
+     logmein-hamachi
+     haguichi
   ];
 
+  programs.gpu-screen-recorder.enable = true;
+  services.flatpak.enable = true;
   programs.zsh.enable = true;
   programs.steam = {
     enable = true;
@@ -48,6 +62,11 @@
     dedicatedServer.openFirewall = true;
   };
   users.defaultUserShell = pkgs.zsh;
+
+  services.logmein-hamachi = {
+    enable = true;
+  };
+  programs.haguichi.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono # Or your preferred Nerd Font

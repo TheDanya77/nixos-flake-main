@@ -59,12 +59,8 @@
         };
 
         bluetooth = {
-          format = " {status}";
-          format-disabled = "";
-          format-connected = " {num_connections} connected";
-          tooltip-format = "{controller_alias}\t{controller_address}";
-          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          format = "";
+          on-click = "blueman-manager";
         };
 
         network = {

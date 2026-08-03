@@ -4,11 +4,17 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      nrb = "sudo nixos-rebuild switch --flake ~/Config/#myNixos";
+      nrb = "git -C ~/Config add . && sudo nixos-rebuild switch --flake ~/Config/#myNixos";
       hrb = "home-manager switch";
       f = "fastfetch";
       sd = "shutdown now";
       alacritty = "alacritty --config-file $PROGRAMS_CONFIG/alacritty/alacritty.toml";
+      check = "systemd-analyze blame | head -n 20 &&
+               systemd-analyze critical-chain &&
+               journalctl -b -p 3 &&
+               journalctl -u home-manager-thedanya.service -b &&
+               systemd-analyze blame | head -n 20 &&
+               journalctl -u home-manager-thedanya.service -b";
     };
     oh-my-zsh = {
       enable = true;

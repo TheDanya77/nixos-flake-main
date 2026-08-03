@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -19,6 +19,9 @@
       ./configs/gpu.nix
       ./configs/hyprland.nix
       ./configs/bluetooth.nix
+
+      ./configs/optimization/block-wifi.nix
+      ./configs/optimization/block-ucsi_ccg.nix
     ];
 
   # This value determines the NixOS release from which the default
