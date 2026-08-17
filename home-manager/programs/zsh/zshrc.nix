@@ -4,6 +4,8 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
+      changemac = "sudo ip link set dev eno2 down && sudo macchanger -r eno2 && sudo ip link set dev eno2 up";
+      resetmac = "sudo ip link set dev eno2 down && sudo macchanger -p eno2 && sudo ip link set dev eno2 up";
       nrb = "git -C ~/Config add . && sudo nixos-rebuild switch --flake ~/Config/#myNixos";
       hrb = "home-manager switch";
       f = "fastfetch";
