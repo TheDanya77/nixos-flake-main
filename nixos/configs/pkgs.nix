@@ -5,7 +5,7 @@ let
   pineconeMC = pkgs.appimageTools.wrapType2 rec {
     pname = "PineconeMC";
     version = "1.0.0";
-    src = ../appImages/PineconeMC.AppImage;
+    src = /home/thedanya/Config/nixos/appImages/PineconeMC.AppImage;
 
     extraPkgs = pkgs: with pkgs; [
       cacert
@@ -61,6 +61,7 @@ in
     easyeffects
     blueman
     unrar
+    hyprpicker
 
     # --- Desktop Environment / Wayland Tools ---
     waybar
@@ -80,6 +81,11 @@ in
 
     # --- Custom Packages ---
     pineconeMC
+
+    xclicker
+
+    zoom-us
+    github-copilot-cli
   ];
 
   # ---------------------------------------------------------------------------
@@ -92,7 +98,9 @@ in
 
   services.tailscale.enable = true;
 
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+  };
   programs.gpu-screen-recorder.enable = true;
 
   programs.zsh.enable = true;
