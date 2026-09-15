@@ -1,11 +1,17 @@
 { pkgs, ... }:
 
 let
+
+  appimage-src = pkgs.fetchurl {
+    url = "https://github.com/ElyPrismLauncher/Launcher/releases/download/11.1.0/PineconeMC-Linux-x86_64.AppImage";
+    sha256 = "sha256-n4Znr9N9CPMH6d4eS2AfV5HVPNIXFD1nr+RCrT6wMhY=";
+  };
+
   # Кастомна AppImage-обгортка винесена окремо, щоб не захаращувати systemPackages
   pineconeMC = pkgs.appimageTools.wrapType2 rec {
     pname = "PineconeMC";
-    version = "1.0.0";
-    src = ../appImages/PineconeMC.AppImage;
+    version = "11.1.0";
+    src = appimage-src;
 
     extraPkgs = pkgs: with pkgs; [
       cacert
