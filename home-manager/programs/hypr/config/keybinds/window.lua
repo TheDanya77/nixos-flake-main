@@ -18,5 +18,4 @@ hl.bind(mainMod .. " + Up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + Down", hl.dsp.focus({ direction = "down" }))
 
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("serpantinum msg toggle autohide"))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen("maximized", "toggle"))
