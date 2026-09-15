@@ -5,7 +5,7 @@ let
   pineconeMC = pkgs.appimageTools.wrapType2 rec {
     pname = "PineconeMC";
     version = "1.0.0";
-    src = /home/thedanya/Config/nixos/appImages/PineconeMC.AppImage;
+    src = ../appImages/PineconeMC.AppImage;
 
     extraPkgs = pkgs: with pkgs; [
       cacert
@@ -54,7 +54,6 @@ in
     thunar
     eog
     firefox
-    discord
     ayugram-desktop
     teams-for-linux
     pavucontrol
@@ -86,6 +85,8 @@ in
 
     zoom-us
     github-copilot-cli
+
+    vesktop
   ];
 
   # ---------------------------------------------------------------------------
@@ -120,7 +121,18 @@ in
   # Налаштування XDG Portals для сумісності з Wayland/Hyprland
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+      hyprland = {
+        default = [ "hyprland" "gtk" ];
+      };
+    };
   };
 
   # ---------------------------------------------------------------------------

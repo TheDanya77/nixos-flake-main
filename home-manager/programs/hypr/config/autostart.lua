@@ -1,0 +1,8 @@
+hl.on("hyprland.start", function()
+  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+  hl.exec_cmd("wl-paste --type image --watch cliphist store")
+  hl.exec_cmd("systemctl --user enable --now easyeffects")
+  hl.exec_cmd("serpantinumd start")
+  hl.dsp.exec_cmd("hyprctl dispatch workspace 1")
+  hl.exec_cmd('gpu-screen-recorder -w screen -f 60 -r 120 -c mp4 -o "$HOME/Videos/Screen Recorder/" &')
+end)

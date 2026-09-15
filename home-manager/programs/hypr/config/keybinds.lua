@@ -1,0 +1,7 @@
+require("config/keybinds/execs")
+require("config/keybinds/others")
+require("config/keybinds/screenshot")
+require("config/keybinds/serpantinum")
+require("config/keybinds/sound")
+require("config/keybinds/window")
+require("config/keybinds/workspaces")
